@@ -29,7 +29,7 @@
 					alert(result);
 					CatFact = JSON.parse(result);
 					
-					document.getElementById("data").innerHTML ="here is ur cat fact: " + CatFact[1]["text"];  
+					document.getElementById("data").innerHTML ="here is ur cat fact using ajax: " + CatFact[1]["text"];  
 					
 				}
 				else if (request.readyState == 4 && request.status != 200) {
@@ -50,6 +50,27 @@
 			console.log("4 - Request sent");
 		}
 	</script>
+		<script>
+			// Step 1: fetch data from API endpoint
+			fetch('https://cat-fact.herokuapp.com/facts')
+				.then(response => {
+					console.log('Response:', response);
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log('Data:', data);
+					// Step 2: display data on the webpage
+					const catFact = data[1].text;
+					document.getElementById('dataSecond').innerHTML = `here is your cat fact using fetch: ${catFact}`;
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					document.getElementById('dataSecond').innerHTML = 'Something went wrong! Please try again later.';
+				});
+		</script>
 </head>
 <style>
 	body{
@@ -100,5 +121,6 @@
 		a cute fun cat fact at the bottom of the menu to add to the theme. 
 	</p>
 	<div id="data">Loading...</div>
+	<div id="dataSecond">Loading...</div>
 </body>
 </html>
