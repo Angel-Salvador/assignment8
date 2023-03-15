@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Cat Fact</title>
+	<title>Cat fact!</title>
 	<meta charset="utf-8"/>
 	<script>
 		function getWeather() {
@@ -50,12 +50,53 @@
 			console.log("4 - Request sent");
 		}
 	</script>
+	<script>
+		function getCatFact() {
+			fetch('https://cat-fact.herokuapp.com/facts')
+			.then(response => response.json())
+			.then(data => {
+				const fact = data.all[Math.floor(Math.random() * data.all.length)].text;
+				document.getElementById("data").innerHTML = `Here is your cat fact: ${fact}`;
+			})
+			.catch(error => {
+				console.error(error);
+				document.getElementById("data").innerHTML = "Something went wrong! Please check the console.";
+			});
+		}
+	</script>
 </head>
+<style>
+	body{
+		color: white;
+		font-family: cursive;
+	}
+.panel{
+    margin: 5% 20% 5% 20%;
+    padding: 2% 5% 2% 5%;
+    align-items: center;
+    justify-content: center;
+    background-color: #104432;
+    align-items: center;
+    /* margin: 0% 20% 0% 20%; */
+}
 
+    .panel::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+.text {
+     font-size: 30px;
+     padding: 10%
+}
+</style>
 
-<body onload="getWeather()">
+<body class="panel" onload="getWeather()">
 
 	<h1>Daily Cat Fact!</h1>
+	<p>
+		The API I used 
+	</p>
 	<div id="data">Loading...</div>
 </body>
 </html>
