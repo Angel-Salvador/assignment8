@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+	<title>Cat fact!</title>
+	<meta charset="utf-8"/>
+</head>
+<style>
+	body{
+		color: white;
+		font-family: cursive;
+	}
+	.panel{
+		margin: 5% 20% 5% 20%;
+		padding: 2% 5% 2% 5%;
+		align-items: center;
+		justify-content: center;
+		background-color: #4e0a14;
+		align-items: center;
+	}
+
+	.panel::after {
+		content: "";
+		clear: both;
+		display: table;
+	}
+
+	.text {
+		font-size: 30px;
+		padding: 10%
+	}
+	a {
+		text-decoration: none; 
+		color: #fcd0d1; 
+	}
+</style>
+
+<body class="panel">
+
+	<h1>Daily Cat Fact!</h1>
+	<p>
+		The API I used was one that gave a cute fun fact about cats. 
+		This API gives different facts everyday!
+		<br><br>
+		I found it at <a href="https://alexwohlbruck.github.io/cat-facts/">this website</a>. 
+		<br><br>
+		The option I used for this was the text tag. 
+		<br><br>
+		One of the applications where this API would be helpful would be for 
+		a museum's exhibit about cats. Every day is a new fact, so people who visit 
+		often can come to a new fact every time! Another application where this would be useful 
+		would be for a cat cafe, where they have a large menu which can display 
+		a cute fun cat fact at the bottom of the menu to add to the theme. 
+	</p>
+	<div id="data">Loading...</div>
+
+	<script>
+		fetch('https://cat-fact.herokuapp.com/facts')
+			.then(response => response.json())
+			.then(data => {
+				const fact = data.all[Math.floor(Math.random() * data.all.length)];
+				document.getElementById('data').innerHTML = 'Here is your cat fact: ' + fact.text;
+			})
+			.catch(error => {
+				document.getElementById('data').innerHTML = 'Something went wrong! Check the logs to see where this went off the rails';
+				console.error(error);
+			});
+	</script>
+
+</body>
+</html>
